@@ -15,7 +15,7 @@ export const webhook = {
           },
           body: JSON.stringify({ content: input.text }),
         })
-        const data = await response.json()
+        const data = await response
         return {
           status: 'success',
           message: 'Report succeded',

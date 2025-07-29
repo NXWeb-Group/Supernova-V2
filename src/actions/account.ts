@@ -10,7 +10,7 @@ export const accountActions = {
         context.session?.set('userid', undefined)
         return {
           status: 'success',
-          message: 'Logged out successfully',
+          message: input.idk,
         }
       } catch (error) {
         console.warn(error)

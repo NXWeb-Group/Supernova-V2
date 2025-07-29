@@ -1,8 +1,8 @@
 ---
-import Navbar from "../layouts/nav.astro";
-import SearchPage from "../components/search.vue";
-import uvImage from "../assets/pics/uv.webp";
-import scramjetImage from "../assets/pics/scramjet.webp";
+import Navbar from '../layouts/nav.astro'
+import SearchPage from '../components/search.vue'
+import uvImage from '../assets/pics/uv.webp'
+import scramjetImage from '../assets/pics/scramjet.webp'
 ---
 
 <Navbar>
@@ -11,16 +11,23 @@ import scramjetImage from "../assets/pics/scramjet.webp";
 
 <script is:inline src="/uv/uv.bundle.js" defer></script>
 <script is:inline src="/uv/uv.config.js" defer></script>
+<script is:inline src="/scramjet/scramjet.controller.js" defer></script>
 
 <script>
-  import { scramjet } from "../assets/search.ts";
+  import { scramjet } from '../assets/search'
 
   async function startSW() {
     try {
-      scramjet.init("/sw.js");
+      if (navigator.serviceWorker) {
+        await scramjet.init()
+        navigator.serviceWorker.register('/sw.js')
+      } else {
+        console.warn('Service workers not supported')
+      }
     } catch (e) {
-      console.warn(e);
+      console.error('Failed to initialize Scramjet:', e)
     }
   }
-  startSW();
+
+  window.addEventListener('load', startSW)
 </script>

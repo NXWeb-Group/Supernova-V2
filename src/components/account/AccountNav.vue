@@ -6,8 +6,13 @@ const props = defineProps({
 
 async function logout() {
   try {
-    await actions.accountActions.logout()
-    window.location.reload()
+    if (!actions?.accountActions) {
+      throw new Error('AI actions not available');
+    }
+    const status = await actions.accountActions.logout({idk: "random data that should not be necessary but idk"})
+    if (status.data?.status === 'success') {
+      window.location.reload()
+    }
   } catch (error) {
     console.error('Failed to logout:', error)
   }

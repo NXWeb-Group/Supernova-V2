@@ -1,6 +1,6 @@
 ---
-import Navbar from "../layouts/nav.astro";
-import AppsPage from "../components/apps.vue";
+import Navbar from '../layouts/nav.astro'
+import AppsPage from '../components/apps.vue'
 ---
 
 <Navbar>
@@ -9,16 +9,23 @@ import AppsPage from "../components/apps.vue";
 
 <script is:inline src="/uv/uv.bundle.js" defer></script>
 <script is:inline src="/uv/uv.config.js" defer></script>
+<script is:inline src="/scramjet/scramjet.controller.js" defer></script>
 
 <script>
-  import { scramjet } from "../assets/search.ts";
+  import { scramjet } from '../assets/search'
 
-  function startSW() {
+  async function startSW() {
     try {
-      scramjet.init("/sw.js");
+      if (navigator.serviceWorker) {
+        await scramjet.init()
+        navigator.serviceWorker.register('/sw.js')
+      } else {
+        console.warn('Service workers not supported')
+      }
     } catch (e) {
-      console.warn(e);
+      console.error('Failed to initialize Scramjet:', e)
     }
   }
-  startSW();
+
+  window.addEventListener('load', startSW)
 </script>

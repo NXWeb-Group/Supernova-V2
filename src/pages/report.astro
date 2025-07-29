@@ -1,4 +1,8 @@
 ---
+if (process.env.REPORT !== 'true') {
+  return Astro.redirect('/')
+}
+
 import Navbar from '../layouts/nav.astro'
 ---
 
@@ -15,7 +19,9 @@ import Navbar from '../layouts/nav.astro'
   document.getElementById('text')?.addEventListener('keydown', async (event) => {
     if (event.key === 'Enter') {
       const text = (document.getElementById('text') as HTMLTextAreaElement).value
-      const response = await actions.webhook.report({ text: text })
+      if (actions.webhook) {
+        const response = await actions.webhook.report({ text: text })
+      }
     }
   })
 </script>

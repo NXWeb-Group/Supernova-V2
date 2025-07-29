@@ -19,7 +19,12 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(ExpressMongoSanitize())
+app.use((req, res, next) => {
+  // Sanitize body and params which are writable
+  if (req.body) req.body = ExpressMongoSanitize.sanitize(req.body);
+  if (req.params) req.params = ExpressMongoSanitize.sanitize(req.params);
+  next();
+});
 
 const currentDir = url.fileURLToPath(new URL('.', import.meta.url))
 let ssrHandler
@@ -56,9 +61,10 @@ if (ssrHandler) {
   console.error('SSR handler is not defined')
 }
 
-app.get('*', (req: express.Request, res: express.Response) => {
+app.use((req, res) => {
   res.redirect('/')
-})
+});
+
 
 const server = createServer()
 
@@ -81,8 +87,6 @@ server.on('upgrade', (req, socket, head) => {
 server.on('listening', () => {
   const address = server.address()
 
-  // by default we are listening on 0.0.0.0 (every interface)
-  // we just need to list a few
   console.log('Listening on:')
   if (address && typeof address === 'object' && 'port' in address) {
     console.log(`\thttp://localhost:${address.port}`)

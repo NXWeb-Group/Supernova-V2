@@ -27,18 +27,6 @@ function addmessage(role: string, content: string) {
   })
 }
 
-function debounce(fn: Function, delay: number) {
-  let timeoutId: NodeJS.Timeout
-  return function () {
-    if (timeoutId) {
-      clearTimeout(timeoutId)
-    }
-    timeoutId = setTimeout(() => {
-      fn()
-    }, delay)
-  }
-}
-
 async function enter(event: KeyboardEvent) {
   if (!event.shiftKey) {
     event.preventDefault()
@@ -49,6 +37,9 @@ async function enter(event: KeyboardEvent) {
           stuff.text = ''
 
           addmessage('user', String(items.isSending))
+          if (!actions?.aiActions) {
+            throw new Error('AI actions not available');
+          }
           const response = await actions.aiActions.ask({
             text: items.isSending,
             roomid: items.selectedRoom,
@@ -94,7 +85,7 @@ async function enter(event: KeyboardEvent) {
 
     <div class="flex gap-2 p-4 py-6 items-center relative">
       <span v-if="stuff.error" class="text-red-500 absolute top-0 left-1/2">{{ stuff.error }}</span>
-      <span class="text-black absolute right-4 top-0">{{ `${stuff.chats}/${props.max}` }}</span>
+      <span class="text-white absolute right-4 top-0">{{ `${stuff.chats}/${props.max}` }}</span>
       <div class="relative flex-1">
         <textarea v-model="stuff.text" placeholder="Type your message" maxlength="2000"
           class="w-full px-4 py-4 rounded-lg focus:outline-hidden resize-none" @keydown.enter="enter" />

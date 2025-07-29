@@ -1,11 +1,37 @@
 interface ScramjetControllerOptions {
   prefix: string
+  globals?: {
+    wrapfn: string
+    wrapthisfn: string
+    trysetfn: string
+    importfn: string
+    rewritefn: string
+    metafn: string
+    setrealmfn: string
+    pushsourcemapfn: string
+  }
   files: {
     wasm: string
+    shared: string
     worker: string
     client: string
-    shared: string
     sync: string
+  }
+  flags?: {
+    serviceworkers?: boolean
+    syncxhr?: boolean
+    naiiveRewriter?: boolean
+    strictRewrites?: boolean
+    rewriterLogs?: boolean
+    captureErrors?: boolean
+    cleanErrors?: boolean
+    scramitize?: boolean
+    sourcemaps?: boolean
+  }
+  siteFlags?: {}
+  codec?: {
+    encode: string
+    decode: string
   }
 }
 
@@ -29,7 +55,7 @@ declare global {
     constructor(options: ScramjetControllerOptions)
 
     encodeUrl(url: string): string
-    init(sw: string): void
+    init(): void
   }
 }
 

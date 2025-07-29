@@ -1,11 +1,8 @@
-importScripts(
-  '/uv/uv.bundle.js',
-  '/uv/uv.config.js',
-  '/uv/uv.sw.js',
-  '/scramjet/scramjet.wasm.js',
-  '/scramjet/scramjet.shared.js',
-  '/scramjet/scramjet.worker.js',
-)
+importScripts('/uv/uv.bundle.js')
+importScripts('/uv/uv.config.js')
+importScripts('/uv/uv.sw.js')
+importScripts('/scramjet/scramjet.shared.js')
+importScripts('/scramjet/scramjet.worker.js')
 
 const uv = new UVServiceWorker()
 const scramjet = new ScramjetServiceWorker()

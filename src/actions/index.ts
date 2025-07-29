@@ -3,7 +3,6 @@ import { aiActions } from './ai'
 import { webhook } from './webhook'
 
 export const server = {
-  accountActions,
-  aiActions,
-  webhook,
+  ...(process.env.AI === 'true' ? { aiActions,accountActions } : {}),
+  ...(process.env.REPORT === 'true' ? { webhook } : {})
 }
