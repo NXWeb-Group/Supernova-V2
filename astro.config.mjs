@@ -31,7 +31,7 @@ export default defineConfig({
       collectionName: 'session',
     },
     cookie: {
-      name: "hjbksdfbhjksdfbhjkdsfbhjfgdssdf",
+      name: 'hjbksdfbhjksdfbhjkdsfbhjfgdssdf',
     },
   },
   server: { port: 2000, host: true },

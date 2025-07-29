@@ -10,7 +10,7 @@ interface App {
 
 const loadScramjet = async () => {
   try {
-    const module = await import('../assets/search.ts')
+    const module = await import('../assets/scramjet.ts')
     return module.scramjet
   } catch (error) {
     console.error('Failed to load search module:', error)
@@ -18,7 +18,7 @@ const loadScramjet = async () => {
   }
 }
 
-let scramjet: null | ScramjetController
+let scramjet: null | any
 const items = ref<App[]>([])
 
 async function fetchStuff() {

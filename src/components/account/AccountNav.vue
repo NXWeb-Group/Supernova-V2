@@ -7,9 +7,11 @@ const props = defineProps({
 async function logout() {
   try {
     if (!actions?.accountActions) {
-      throw new Error('AI actions not available');
+      throw new Error('AI actions not available')
     }
-    const status = await actions.accountActions.logout({idk: "random data that should not be necessary but idk"})
+    const status = await actions.accountActions.logout({
+      idk: 'random data that should not be necessary but idk',
+    })
     if (status.data?.status === 'success') {
       window.location.reload()
     }
@@ -25,13 +27,18 @@ async function logout() {
       <p class="font-poppins text-3xl text-white no-underline truncate max-w-[20ch]">
         {{ props.accountInfo.username }}
       </p>
-      <button class="text-black bg-blue-700 font-poppins rounded-xl w-36 h-12 text-2xl hover:cursor-pointer"
-        @click="logout">
+      <button
+        class="text-black bg-blue-700 font-poppins rounded-xl w-36 h-12 text-2xl hover:cursor-pointer"
+        @click="logout"
+      >
         Logout
       </button>
     </div>
-    <a v-else
+    <a
+      v-else
       class="mr-8 text-black bg-blue-700 font-poppins rounded-xl w-36 h-12 text-center no-underline text-2xl flex items-center justify-center"
-      href="/login">Login</a>
+      href="/login"
+      >Login</a
+    >
   </div>
 </template>

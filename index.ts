@@ -21,10 +21,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use((req, res, next) => {
   // Sanitize body and params which are writable
-  if (req.body) req.body = ExpressMongoSanitize.sanitize(req.body);
-  if (req.params) req.params = ExpressMongoSanitize.sanitize(req.params);
-  next();
-});
+  if (req.body) req.body = ExpressMongoSanitize.sanitize(req.body)
+  if (req.params) req.params = ExpressMongoSanitize.sanitize(req.params)
+  next()
+})
 
 const currentDir = url.fileURLToPath(new URL('.', import.meta.url))
 let ssrHandler
@@ -63,8 +63,7 @@ if (ssrHandler) {
 
 app.use((req, res) => {
   res.redirect('/')
-});
-
+})
 
 const server = createServer()
 

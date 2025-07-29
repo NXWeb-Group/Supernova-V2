@@ -12,4 +12,4 @@ services:
     restart: always
     image: mongo
     volumes:
-      - mongodb:/data/db
+      - ./mongodb:/data/db

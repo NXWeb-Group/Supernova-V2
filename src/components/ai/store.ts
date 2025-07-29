@@ -17,7 +17,7 @@ export async function selectRoom(roomid: string | null) {
   if (!items.isSending) {
     if (roomid) {
       if (!actions?.aiActions) {
-        throw new Error('AI actions not available');
+        throw new Error('AI actions not available')
       }
       const response = await actions.aiActions.getChats({ roomid })
       items.chats = response.data

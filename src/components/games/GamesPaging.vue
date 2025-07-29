@@ -12,7 +12,11 @@ import { page, items, totalPages } from './Games'
     >
       {{ items.pagenum - 2 }}
     </button>
-    <button v-if="items.pagenum - 1 > 0" class="m-0.5 w-8 hover:cursor-pointer" @click="page(--items.pagenum)">
+    <button
+      v-if="items.pagenum - 1 > 0"
+      class="m-0.5 w-8 hover:cursor-pointer"
+      @click="page(--items.pagenum)"
+    >
       {{ items.pagenum - 1 }}
     </button>
     <button class="m-0.5 p-1 rounded-full bg-title-blue w-10 hover:cursor-pointer">

@@ -2,9 +2,10 @@
 import { reactive, onMounted } from 'vue'
 import { search, defaultConfig } from '../assets/stuff.ts'
 
+
 const loadScramjet = async () => {
   try {
-    const module = await import('../assets/search.ts')
+    const module = await import('../assets/scramjet.ts')
     return module.scramjet
   } catch (error) {
     console.error('Failed to load search module:', error)
@@ -12,7 +13,8 @@ const loadScramjet = async () => {
   }
 }
 
-let scramjet: null | ScramjetController
+// can't import $scramjetLoadController() because import with script after build
+let scramjet: null | any
 
 onMounted(async () => {
   data.proxy = localStorage.getItem('proxy') || defaultConfig.proxy
