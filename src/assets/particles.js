@@ -32,74 +32,70 @@ export async function startParticles() {
           '#ccffff', // Light Cyan
         ],
       },
-      groups: {
-        stars: {
-          number: {
-            value: 320,
-          },
-          opacity: {
-            value: { min: 0.3, max: 1 },
-          },
-          size: {
-            value: { min: 1, max: 4 },
-          },
-          twinkle: {
-            enable: true,
-            frequency: 0.2,
-            opacity: 1,
-          },
-          position: {
-            x: 50,
-            y: 50,
-            radius: 20,
-          },
-        },
-      },
       number: {
-        value: 400,
+        value: 800,
         density: {
           enable: true,
-          area: 800,
+          value_area: 800,
         },
       },
       move: {
         enable: true,
-        speed: { min: 0.2, max: 2 },
+        speed: {
+          min: 0.2,
+          max: 2,
+        },
         direction: 'outside',
         random: true,
         straight: false,
         outModes: {
           default: 'out',
         },
-        attract: {
-          enable: false,
-        },
-        center: {
-          x: 50,
-          y: 50,
-          radius: 80,
-        },
       },
       opacity: {
-        value: { min: 0.3, max: 1 },
+        value: {
+          min: 0.3,
+          max: 1,
+        },
         animation: {
           enable: true,
           speed: 0.5,
           sync: false,
+          startValue: 'random',
           minimumValue: 0.1,
         },
       },
       size: {
-        value: { min: 1, max: 4 },
+        value: {
+          min: 1,
+          max: 4,
+        },
         animation: {
           enable: true,
           speed: 1,
           sync: false,
+          startValue: 'random',
           minimumValue: 0.5,
         },
       },
+      effect: {
+        type: 'twinkle',
+        options: {
+          twinkle: {
+            lines: {
+              enable: true,
+              frequency: 0.2,
+              opacity: 1,
+            },
+            particles: {
+              enable: true,
+              frequency: 0.2,
+              opacity: 1,
+            },
+          },
+        },
+      },
     },
-
     pauseOnBlur: true,
     pauseOnOutsideViewport: true,
     detectRetina: true,

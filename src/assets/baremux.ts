@@ -20,6 +20,7 @@ export async function initTransport(transportsel: string) {
     } else {
       await conn.setTransport('/bareasmodule/index.mjs', [bareUrl])
     }
+    console.log(await conn.getTransport())
   } catch (err) {
     console.error(err)
   }
