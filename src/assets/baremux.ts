@@ -1,4 +1,5 @@
 import { BareMuxConnection } from '@mercuryworkshop/bare-mux'
+import { defaultConfig } from './stuff'
 
 let conn: BareMuxConnection
 try {
@@ -7,11 +8,9 @@ try {
   console.error(err)
 }
 
-const wispUrl = (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host + '/wisp/'
-
-const bareUrl = location.protocol + '//' + location.host + '/bare/'
-
 export async function initTransport(transportsel: string) {
+  const wispUrl = localStorage.getItem('wisp') || defaultConfig.wisp
+  const bareUrl = localStorage.getItem('bare') || defaultConfig.bare
   try {
     if (transportsel == 'epoxy') {
       await conn.setTransport('/epoxy/index.mjs', [{ wisp: wispUrl }])
