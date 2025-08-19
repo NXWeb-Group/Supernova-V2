@@ -47,6 +47,17 @@ if (!accountid) {
 ---
 
 <Navbar>
+  <div id="warning" class="absolute z-10 h-10 w-full">
+    <div class="flex justify-center">
+      <div class="flex flex-col bg-blue-500 rounded-lg w-100 h-min p-5">
+        <h1 class="text-white justify-items-start">Warning:</h1>
+        <p class="text-white">
+          This feature is experimental and may be changed or removed at any time
+        </p>
+        <button id="ok" class="p-2 pw-4 bg-green-500 rounded-3xl w-min self-center">Ok</button>
+      </div>
+    </div>
+  </div>
   <div class="h-full flex flex-col bg-gray-700 overflow-hidden">
     <div class="flex-1 flex overflow-hidden">
       <Chats chats={num} max={Number(process.env.MAX_CHATS)} client:load>
@@ -56,3 +67,10 @@ if (!accountid) {
     </div>
   </div>
 </Navbar>
+
+<script>
+  document.getElementById('ok')?.addEventListener('click', () => {
+    const element = document.getElementById('warning')
+    if (element) element.style.display = 'none'
+  })
+</script>
