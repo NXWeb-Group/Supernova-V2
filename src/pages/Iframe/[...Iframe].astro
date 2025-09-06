@@ -2,7 +2,6 @@
 export const prerender = false;
 import "../../assets/global.css";
 import LoadingScreen from "../../components/loader.astro";
-const url = Astro.url.pathname.substring(7) + Astro.url.search;
 ---
 
 <div class="fixed inset-0 flex justify-center items-center">
@@ -23,14 +22,11 @@ const url = Astro.url.pathname.substring(7) + Astro.url.search;
     await initTransport(
       localStorage.getItem("transport") || defaultConfig.transport
     );
+    const url = window.location.pathname.substring(7) + window.location.search;
     const iframe = document.getElementById("iframe") as HTMLIFrameElement;
     if (iframe) {
-      iframe.src = window.iframeurl;
+      iframe.src = url;
     }
   }
   go();
-</script>
-
-<script is:inline define:vars={{ url }}>
-  window.iframeurl = url;
 </script>
