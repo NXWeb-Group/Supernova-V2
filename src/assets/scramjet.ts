@@ -1,4 +1,5 @@
-const { ScramjetController } = $scramjetLoadController()
+
+import { ScramjetController } from "@mercuryworkshop/scramjet/bundled"
 
 let scramjet: InstanceType<typeof ScramjetController>
 

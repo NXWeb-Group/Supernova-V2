@@ -10,7 +10,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     server: {
-      allowedHosts: [''],
+      allowedHosts: ['2000.code.nxweb.com'],
     },
   },
   outDir: 'dist/astro',

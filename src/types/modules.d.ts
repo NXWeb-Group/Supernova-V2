@@ -1,11 +1,8 @@
-import * as controller from './scramjet/controller/index'
 
 declare global {
   interface Window {
     iframeurl: string
   }
-
-  function $scramjetLoadController(): typeof controller
 
   const __uv$config: {
     prefix: string

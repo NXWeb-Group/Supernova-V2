@@ -7,6 +7,7 @@ import { epoxyPath } from '@mercuryworkshop/epoxy-transport'
 import { libcurlPath } from '@mercuryworkshop/libcurl-transport'
 import { bareModulePath } from '@mercuryworkshop/bare-as-module3'
 import { baremuxPath } from '@mercuryworkshop/bare-mux/node'
+import { scramjetPath } from '@mercuryworkshop/scramjet/path'
 import { uvPath } from '@titaniumnetwork-dev/ultraviolet'
 import { Socket } from 'node:net'
 import { createServer } from 'node:http'
@@ -42,7 +43,7 @@ await loadHandler()
 
 app.use(express.static('dist/astro/client/'))
 app.use('/uv/', express.static(uvPath))
-app.use('/scramjet/', express.static('scramjet'))
+app.use('/scramjet/', express.static(scramjetPath))
 app.use('/epoxy/', express.static(epoxyPath))
 app.use('/libcurl/', express.static(libcurlPath))
 app.use('/bareasmodule/', express.static(bareModulePath))

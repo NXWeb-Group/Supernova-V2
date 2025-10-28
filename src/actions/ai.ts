@@ -45,7 +45,7 @@ export const aiActions = {
           // @ts-ignore
           messages: chatBackend,
           model: String(process.env.AI_MODEL),
-          max_tokens: 5000,
+          max_completion_tokens: 5000,
         })
         console.log(completion.choices[0])
 
