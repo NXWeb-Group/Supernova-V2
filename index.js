@@ -13,7 +13,8 @@ import { Socket } from 'node:net'
 import { createServer } from 'node:http'
 import { hostname } from 'node:os'
 import url from 'node:url'
-import wisp from 'wisp-server-node'
+import { server as wisp } from "@mercuryworkshop/wisp-js/server";
+
 
 const bare = createBareServer('/bare/')
 const app = express()
@@ -21,7 +22,6 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use((req, res, next) => {
-  // Sanitize body and params which are writable
   if (req.body) req.body = ExpressMongoSanitize.sanitize(req.body)
   if (req.params) req.params = ExpressMongoSanitize.sanitize(req.params)
   next()
@@ -52,7 +52,7 @@ app.use('/baremux/', express.static(baremuxPath))
 app.use(
   '/cdn',
   proxy(`https://3kh0-assets.nxweb.xyz`, {
-    proxyReqPathResolver: (req: express.Request) => req.url,
+    proxyReqPathResolver: () => req.url,
   }),
 )
 
@@ -80,7 +80,7 @@ server.on('upgrade', (req, socket, head) => {
   if (bare.shouldRoute(req)) {
     bare.routeUpgrade(req, socket, head)
   } else if (req.url && req.url.endsWith('/wisp/')) {
-    wisp.routeRequest(req, socket as Socket, head)
+    wisp.routeRequest(req, socket, head)
   } else socket.end()
 })
 
