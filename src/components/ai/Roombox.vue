@@ -8,7 +8,10 @@ const props = defineProps({
 })
 
 const show = ref(true)
-items.rooms = props.rooms || []
+// Convert array to Map if rooms are provided
+if (props.rooms) {
+  items.rooms = new Map(props.rooms.map(r => [r.roomid, r.name]))
+}
 
 function toggle() {
   show.value = !show.value
@@ -29,7 +32,7 @@ function toggle() {
         chevron_forward </span>
     </div>
     <div v-show="show" class="overflow-y-auto h-full">
-      <room v-for="item in items.rooms" :key="item.roomid" :id="item.roomid" :name="item.name" />
+      <room v-for="[roomid, name] in items.rooms" :key="roomid" :id="roomid" :name="name" />
       <room :id="null" name="New Room" />
     </div>
   </div>
