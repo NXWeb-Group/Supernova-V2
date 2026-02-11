@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { items } from './store'
-import { ref, type PropType } from 'vue'
+import { ref, type PropType, onMounted } from 'vue'
 import room from './AiRoom.vue'
 
 const props = defineProps({
@@ -8,10 +8,18 @@ const props = defineProps({
 })
 
 const show = ref(true)
-// Convert array to Map if rooms are provided
-if (props.rooms) {
-  items.rooms = new Map(props.rooms.map(r => [r.roomid, r.name]))
-}
+
+// Initialize rooms only once when component mounts
+onMounted(() => {
+  if (props.rooms && props.rooms.length > 0) {
+    // Only add rooms that don't already exist (merge instead of replace)
+    props.rooms.forEach(r => {
+      if (!items.rooms.has(r.roomid)) {
+        items.rooms.set(r.roomid, r.name)
+      }
+    })
+  }
+})
 
 function toggle() {
   show.value = !show.value
