@@ -11,7 +11,7 @@ const show = ref(true)
 
 // Initialize rooms only once when component mounts
 onMounted(() => {
-  if (props.rooms && props.rooms.length > 0) {
+  if (props.rooms && Array.isArray(props.rooms) && props.rooms.length > 0) {
     // Only add rooms that don't already exist (merge instead of replace)
     props.rooms.forEach(r => {
       if (!items.rooms.has(r.roomid)) {
