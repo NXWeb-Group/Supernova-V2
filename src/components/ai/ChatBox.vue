@@ -49,7 +49,7 @@ async function enter(event: KeyboardEvent) {
               addmessage('assistant', response.data.message)
             }
             if (response.data?.roomid) {
-              items.rooms.set(response.data.roomid, 'Unnamed Room')
+              items.rooms.push({ roomid: response.data.roomid, name: 'Unnamed Room' })
               items.selectedRoom = response.data.roomid
             }
             stuff.chats = response.data?.chats;

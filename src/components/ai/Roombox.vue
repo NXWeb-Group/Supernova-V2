@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { items } from './store'
-import { ref, type PropType, onMounted } from 'vue'
+import { ref, type PropType } from 'vue'
 import room from './AiRoom.vue'
 
 const props = defineProps({
@@ -8,18 +8,7 @@ const props = defineProps({
 })
 
 const show = ref(true)
-
-// Initialize rooms only once when component mounts
-onMounted(() => {
-  if (props.rooms && Array.isArray(props.rooms) && props.rooms.length > 0) {
-    // Only add rooms that don't already exist (merge instead of replace)
-    props.rooms.forEach(r => {
-      if (!items.rooms.has(r.roomid)) {
-        items.rooms.set(r.roomid, r.name)
-      }
-    })
-  }
-})
+items.rooms = props.rooms || []
 
 function toggle() {
   show.value = !show.value
@@ -40,7 +29,7 @@ function toggle() {
         chevron_forward </span>
     </div>
     <div v-show="show" class="overflow-y-auto h-full">
-      <room v-for="[roomid, name] in items.rooms" :key="roomid" :id="roomid" :name="name" />
+      <room v-for="item in items.rooms" :key="item.roomid" :id="item.roomid" :name="item.name" />
       <room :id="null" name="New Room" />
     </div>
   </div>

@@ -1,9 +1,14 @@
 import { reactive } from 'vue'
 import { actions } from 'astro:actions'
 
+interface Room {
+  roomid: string
+  name: string
+}
+
 export const items = reactive({
   selectedRoom: null as string | null,
-  rooms: new Map<string, string>(),
+  rooms: [] as { roomid: string; name: string }[],
   chats: [] as { role: string; content: string }[],
   isSending: false as string | boolean,
 })
@@ -26,5 +31,6 @@ export async function selectRoom(roomid: string | null) {
 
 export async function removeRoom(roomid: string) {
   if (roomid === items.selectedRoom) selectRoom(null)
-  items.rooms.delete(roomid)
+  const foundRooms = items.rooms.filter((room: Room) => room.roomid !== roomid)
+  items.rooms = foundRooms
 }
